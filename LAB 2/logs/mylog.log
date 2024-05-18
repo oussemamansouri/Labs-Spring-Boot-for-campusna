@@ -1,2 +1,4 @@
 2024-05-18T14:56:09.584+01:00 ERROR 9420 --- [logging] [main] c.example.loggers.MyApplicationRunner    : Errur occurred: / by zero
 2024-05-18T14:56:47.093+01:00 ERROR 1292 --- [logging] [main] c.example.loggers.MyApplicationRunner    : Errur occurred: / by zero
+2024-05-18T15:08:59.054+01:00 ERROR 15912 --- [logging] [main] c.example.loggers.MyApplicationRunner    : Errur occurred: / by zero
+2024-05-18 ERROR [%PARSER_ERROR[pid]]---[main] com.example.loggers.MyApplicationRunner - Errur occurred: / by zero
