@@ -1,8 +1,12 @@
 package com.example.computer.models;
 
-public class Doubler {
+import org.springframework.stereotype.Component;
 
-    public long computeDouble(long value){
+@Component
+public class Doubler implements Computer {
+    
+    @Override
+    public long compute(long value){
         return value * 2 ;
     }
     

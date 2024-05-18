@@ -1,8 +1,11 @@
 package com.example.computer.models;
 
-public class Squarer {
+import org.springframework.stereotype.Component;
 
-    public long computeSquare(long value){
+@Component
+public class Squarer  implements Computer{
+    @Override
+    public long compute(long value){
         return value * value ;
     }
     

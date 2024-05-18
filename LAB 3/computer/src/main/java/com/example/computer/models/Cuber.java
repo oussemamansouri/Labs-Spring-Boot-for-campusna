@@ -1,8 +1,14 @@
 package com.example.computer.models;
 
-public class Cuber {
 
-    public long computeCube(long value){
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+@Component
+@Primary
+public class Cuber implements Computer{
+    @Override
+    public long compute(long value){
         return value * value * value ;
     }
     
