@@ -3,7 +3,7 @@ package com.example.computer.services;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.example.computer.models.Cuber;
 import com.example.computer.models.Doubler;
 import com.example.computer.models.Squarer;
 
@@ -24,6 +24,8 @@ public class ComputerProcessor {
                 computerValue = ((Doubler) o).computeDouble(value); 
             }else if(o instanceof Squarer){
                 computerValue = ((Squarer) o).computeSquare(value);
+            }else if(o instanceof Cuber){
+                computerValue = ((Cuber) o).computeCube(value);
             }
 
             String name = o.getClass().getSimpleName();
