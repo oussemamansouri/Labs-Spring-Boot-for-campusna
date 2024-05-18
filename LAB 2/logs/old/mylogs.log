@@ -92,6 +92,3 @@ Identify and stop the process that's listening on port 8085 or configure this ap
 2024-05-18 INFO  [%PARSER_ERROR[pid]]---[main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8085 (http) with context path ''
 2024-05-18 INFO  [%PARSER_ERROR[pid]]---[main] com.example.logging.LoggingApplication - Started LoggingApplication in 2.456 seconds (process running for 2.967)
 2024-05-18 INFO  [%PARSER_ERROR[pid]]---[main] com.example.loggers.MyApplicationRunner - Application started
-2024-05-18 INFO  [%PARSER_ERROR[pid]]---[main] com.example.loggers.MyApplicationRunner - Log file has been successfully copied to C:\Users\Oussama_M\Documents\GitHub\Labs-Spring-Boot-for-campusna-\LAB 2\logs\old\mylogs.log
-2024-05-18 ERROR [%PARSER_ERROR[pid]]---[main] com.example.loggers.MyApplicationRunner - Errur occurred: / by zero
-2024-05-18 INFO  [%PARSER_ERROR[pid]]---[main] com.example.loggers.MyApplicationRunner - Application finished
