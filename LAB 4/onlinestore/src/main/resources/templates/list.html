@@ -3,11 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title>Product List</title>
 </head>
 <body>
 
-    
+    <div class="heading-container">
+        <img th:src="@{/images/logo.png}"  alt="logo image">
+        <h1>Product List</h1>
+    </div>
+
+    <!-- table of product start here-->
+    <table class="product-table">
+        <thead class="table-head">
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-rows" th:each="product : ${products}">
+                <td th:text="${product.code}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="|${product.price} $|"></td>
+                <td th:text="${product.quantity}"></td>
+                <td class="image-container">
+                    <img th:if="${product.image != null}"  th:src="@{|/images/${product.image}|}" class="image" alt="product image">
+                    <img th:if="${product.image == null}"  th:src="@{/images/no-image.png}" class="image" alt="product image">
+                </td>
+            </tr>            
+        </tbody>
+    </table>
+     <!-- table of product end here-->
     
 </body>
 </html>

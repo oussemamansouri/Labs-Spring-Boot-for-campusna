@@ -23,7 +23,7 @@ public class ProductController {
         products.add(new Product(++idCont, "IP-7","iPhone 7",600D, 30, "iphone-7.png"));
 
     }
-
+    
     @RequestMapping("/product")
     public String requestMethodName(Model model) {
         model.addAttribute("products", products);
