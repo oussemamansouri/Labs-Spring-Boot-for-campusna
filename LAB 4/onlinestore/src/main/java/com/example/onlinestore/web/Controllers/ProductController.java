@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import com.example.onlinestore.web.Models.Product;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
@@ -23,15 +24,18 @@ public class ProductController {
         products.add(new Product(++idCont, "IP-7","iPhone 7",600D, 30, "iphone-7.png"));
 
     }
-    
+
+
     @RequestMapping("/product")
-    public String requestMethodName(Model model) {
+    public String getProducts(Model model) {
         model.addAttribute("products", products);
         return "list";
     }
+
+    @RequestMapping("/")
+    public String addProduct(Model model) {
+        return "redirect:/product";
+    }
     
-
-
-
 
 }
