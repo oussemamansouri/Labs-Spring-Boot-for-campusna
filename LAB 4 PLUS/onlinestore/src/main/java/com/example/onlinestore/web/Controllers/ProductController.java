@@ -8,7 +8,8 @@ import org.springframework.ui.Model;
 
 import com.example.onlinestore.web.Models.Product;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -27,8 +28,9 @@ public class ProductController {
 
 
     @RequestMapping("/product")
-    public String getProducts(Model model) {
+    public String getProducts(@RequestParam(value = "clientName" ,defaultValue = "oussama", required = false) String client , Model model) {
         model.addAttribute("products", products);
+        model.addAttribute("client", client);
         return "list";
     }
 
