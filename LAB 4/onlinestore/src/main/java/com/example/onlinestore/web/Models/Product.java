@@ -12,7 +12,7 @@ public class Product {
     private Long id ;
     private String code ;
     private String name ;
-    private Double String ;
+    private Double price ;
     private int quantity ;
     private String image ;
 
