@@ -28,6 +28,7 @@ h3,a{
 .table-container{
     margin: auto;
     width: 90%;
+    overflow-x: auto ;
 }
 
 .product-table{
