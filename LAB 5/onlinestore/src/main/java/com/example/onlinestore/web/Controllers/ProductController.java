@@ -37,7 +37,7 @@ public class ProductController {
 
     @RequestMapping("/")
     public String addProduct(Model model) {
-        return "redirect:/products";
+        return "index";
     }
 
 
