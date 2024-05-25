@@ -1,6 +1,6 @@
 *{
-    padding: 0;
-    margin: 0;
+    /* padding: 0;
+    margin: 0; */
     box-sizing: border-box;
 }
 body{
@@ -9,6 +9,9 @@ body{
 
 h1{
     color: #4609b9;
+}
+h3,a{
+    color: #8103d0;
 }
 
 .heading-container{
@@ -19,10 +22,14 @@ h1{
     padding: 16px;
 }
 
+.table-container{
+    margin: auto;
+    width: 90%;
+}
+
 .product-table{
-    width: 97%;
+  width: 100%;
    border-collapse: collapse;
-   margin: 0px 1.5%;
 }
 .table-head{
     background-color: #c5ACD5;
