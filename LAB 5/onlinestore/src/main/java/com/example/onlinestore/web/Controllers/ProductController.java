@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.example.onlinestore.web.Models.Product;
+import com.example.onlinestore.web.Models.requests.ProductForm;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,8 +44,9 @@ public class ProductController {
 
     // Create product endpoints 
     @RequestMapping(path="Products/create", method=RequestMethod.GET)
-    public String getAddProductForm(@RequestParam String param) {
-        return new String();
+    public String getAddProductForm( Model model ) {
+        model.addAttribute("productForm", new ProductForm());
+        return "create";
     }
 
     @RequestMapping(path="Products/create", method=RequestMethod.POST)
