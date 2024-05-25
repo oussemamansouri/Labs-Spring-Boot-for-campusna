@@ -29,3 +29,18 @@ h3,a{
     
 }
 
+.button{
+    background-color: #8103d0;
+    padding: 10px;
+    border-radius: 5%;
+    border: 2px solid #8103d0;
+    margin: 16px 0px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: #ffffff;
+    border: 2px solid #8103d0;
+    color: #000000;
+}
