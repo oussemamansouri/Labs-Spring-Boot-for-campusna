@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import com.example.onlinestore.web.Models.Product;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -26,7 +28,8 @@ public class ProductController {
     }
 
 
-    @RequestMapping("/product")
+    // Read products endpoints 
+    @RequestMapping("/products")
     public String getProducts(Model model) {
         model.addAttribute("products", products);
         return "list";
@@ -34,8 +37,40 @@ public class ProductController {
 
     @RequestMapping("/")
     public String addProduct(Model model) {
-        return "redirect:/product";
+        return "redirect:/products";
     }
+
+
+    //  product endpoints 
+    @RequestMapping(path="Products/create", method=RequestMethod.GET)
+    public String getAddProductForm(@RequestParam String param) {
+        return new String();
+    }
+
+    @RequestMapping(path="Products/create", method=RequestMethod.POST)
+    public String addProduct(@RequestParam String param) {
+        return new String();
+    }
+
+    // update product endpoints 
+    @RequestMapping(path="Products/{id}/edit", method=RequestMethod.GET)
+    public String getEditProductForm(@RequestParam String param) {
+        return new String();
+    }
+
+    @RequestMapping(path="Products/{id}/edit", method=RequestMethod.POST)
+    public String updateProduct(@RequestParam String param) {
+        return new String();
+    }
+    
+     // delete product endpoints 
+     @RequestMapping(path="Products/{id}/delete", method=RequestMethod.POST)
+     public String deleteProduct(@RequestParam String param) {
+         return new String();
+     }
+    
+
+
     
 
 }
