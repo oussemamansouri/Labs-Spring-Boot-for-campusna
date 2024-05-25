@@ -8,13 +8,13 @@
 </head>
 <body>
 
-    <div class="heading-container">
+    <div class="heading-container flex-centre">
         <img th:src="@{/images/logo.png}"  alt="logo image">
         <h1>Product List</h1>
     </div>
 
     <!-- table of product start here-->
-<div class="table-container">
+<div class="table-container ">
     <a th:href="@{/}"> <b>Back</b></a>
     <h3>Product List</h3>
     <table class="product-table">
@@ -25,6 +25,7 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Image</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -37,12 +38,16 @@
                     <img th:if="${product.image != null}"  th:src="@{|/images/${product.image}|}" class="image" alt="product image">
                     <img th:if="${product.image == null}"  th:src="@{/images/no-image.png}" class="image" alt="product image">
                 </td>
-            </tr>            
+                <td>
+                    <div class="flex-centre">
+                        <button type="button" class="table-button">Update</button>
+                        <button type="button" class="table-button">Delete</button>
+                    </div>
+                </td>
+            </tr>          
         </tbody>
     </table>
-    <form th:action="@{}">
-        <input type="submit" value="Add Product">
-    </form>
+    <a th:href="@{/Products/create}"><button type="button" class="button">Add Product</button></a>
 </div>
      <!-- table of product end here-->
     
