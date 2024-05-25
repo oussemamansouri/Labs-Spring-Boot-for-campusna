@@ -41,7 +41,7 @@ public class ProductController {
     }
 
 
-    //  product endpoints 
+    // Create product endpoints 
     @RequestMapping(path="Products/create", method=RequestMethod.GET)
     public String getAddProductForm(@RequestParam String param) {
         return new String();
