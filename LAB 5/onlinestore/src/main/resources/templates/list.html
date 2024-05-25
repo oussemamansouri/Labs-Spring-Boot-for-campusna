@@ -14,6 +14,9 @@
     </div>
 
     <!-- table of product start here-->
+<div class="table-container">
+    <a th:href="@{/}"> <b>Back</b></a>
+    <h3>Product List</h3>
     <table class="product-table">
         <thead class="table-head">
             <tr>
@@ -37,6 +40,10 @@
             </tr>            
         </tbody>
     </table>
+    <form th:action="@{}">
+        <input type="submit" value="Add Product">
+    </form>
+</div>
      <!-- table of product end here-->
     
 </body>
