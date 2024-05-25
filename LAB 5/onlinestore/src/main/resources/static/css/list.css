@@ -14,10 +14,13 @@ h3,a{
     color: #8103d0;
 }
 
-.heading-container{
+.flex-centre{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.heading-container{
     flex-direction: column;
     padding: 16px;
 }
@@ -64,8 +67,28 @@ h3,a{
     background-color: #8103d0;
     padding: 10px;
     border-radius: 5%;
-    border: #8103d0;
+    border: 2px solid #8103d0;
     margin: 16px 0px;
     color: #ffffff;
     cursor: pointer;
+}
+
+.button:hover{
+    background-color: #ffffff;
+    border: 2px solid #8103d0;
+    color: #000000;
+}
+.table-button{
+    background-color: #ffffff;
+    border: 2px solid #8103d0;
+    color: #000000;
+    padding: 10px;
+    border-radius: 5%;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+
+.table-button:hover{
+    background-color: #8103d0;
+    color: #ffffff;
 }
