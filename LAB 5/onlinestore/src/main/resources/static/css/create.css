@@ -1,0 +1,26 @@
+*{
+    /* padding: 0;
+    margin: 0; */
+    box-sizing: border-box;
+}
+body{
+    background-color: #f2f2f2;
+}
+
+h1{
+    color: #4609b9;
+}
+h3,a{
+    color: #8103d0;
+}
+
+.flex-centre{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading-container{
+    flex-direction: column;
+    padding: 16px;
+}
