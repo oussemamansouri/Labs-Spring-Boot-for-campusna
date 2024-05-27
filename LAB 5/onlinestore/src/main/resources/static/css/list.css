@@ -93,3 +93,10 @@ h3,a{
     background-color: #8103d0;
     color: #ffffff;
 }
+
+.alert{
+    padding: 15px;
+    background-color: #4609b9;
+    color: white;
+    border-radius: 6px;
+}
