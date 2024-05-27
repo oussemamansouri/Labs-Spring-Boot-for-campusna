@@ -16,7 +16,7 @@
 <div class="form-container">
     <a th:href="@{/products}"> <b>Back</b></a>
     <h3>New Product</h3>
-    <form th:action="@{/Products/create}" th:object="${productForm}" method="post" >
+    <form th:action="@{/products/create}" th:object="${productForm}" method="post" >
       <div class="field">
           <label for="Code">Code: </label>
           <input type="text" name="Code" id="Code" th:field="*{code}">
