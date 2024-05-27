@@ -66,6 +66,7 @@ public class ProductController {
         .findFirst()
         .ifPresent( (res) -> {
             model.addAttribute("productForm", new ProductForm(res.getCode(),res.getName(),res.getPrice(),res.getQuantity(),null)) ;
+            model.addAttribute("id", id );
         });
         return "edit";
     }
