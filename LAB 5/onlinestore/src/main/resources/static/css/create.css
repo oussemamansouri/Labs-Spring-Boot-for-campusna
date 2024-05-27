@@ -25,14 +25,20 @@ h3,a{
     padding: 16px;
 }
 
+.form-container{
+    margin: 0px 10%;
+}
 
-input{
+.field{
     margin: 10px 0px;
 }
-input::before{
-    content: '';
-    margin-left: 10px;
+
+.field > label{
+    display: inline-block;
+    width: 90px ;
 }
+
+
 
 .button{
     background-color: #8103d0;
