@@ -34,8 +34,8 @@ public class ProductController {
     // Read products endpoints 
     @RequestMapping("/products")
     public String getProducts(Model model) {
-        model.addAttribute("products", products);
-        return "list";
+            model.addAttribute("products", products);
+            return "list";
     }
 
     @RequestMapping("/")

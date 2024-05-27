@@ -19,7 +19,7 @@
     <div class="table-container ">
         <a th:href="@{/}"> <b>Back</b></a>
         <h3>Product List</h3>
-        <table class="product-table" th:if="${products}">
+        <table class="product-table" th:if="!${products.isEmpty()}">
             <thead class="table-head">
                 <tr>
                     <th>Code</th>
@@ -55,7 +55,7 @@
                 </tr>
             </tbody>
         </table>
-        <div th:if="!${products}" class="alert">Ther is no products</div>
+        <div th:if="${products.isEmpty()}" class="alert">Ther is no products</div>
         <a th:href="@{/products/create}"><button type="button" class="button">Add Product</button></a>
     </div>
     <!-- table of product end here-->
