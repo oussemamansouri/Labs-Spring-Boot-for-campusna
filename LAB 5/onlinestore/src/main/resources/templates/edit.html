@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/create.css}">
+    <title>Update Product </title>
+</head>
+<body>
+      <div class="heading-container flex-centre">
+        <img th:src="@{/images/logo.png}"  alt="logo image">
+        <h1>Product Management</h1>
+      </div>
+      
+      <!-- add product form start here-->
+<div class="form-container">
+    <a th:href="@{/products}"> <b>Back</b></a>
+    <h3>Update Product</h3>
+    <form th:action="@{/Products/create}" th:object="${productForm}" method="post" >
+      <div class="field">
+          <label for="Code">Code: </label>
+          <input type="text" name="Code" id="Code" th:field="*{code}">
+      </div>
+      <div class="field">
+          <label for="Name">Name: </label>
+          <input type="text" name="Name" id="Name" th:field="*{name}">
+      </div>
+      <div class="field">
+          <label for="Price">Price: </label>
+          <input type="number" name="Price" id="Price" th:field="*{price}">
+      </div>
+      <div class="field">
+          <label for="Quantity">Quantity: </label>
+          <input type="number" name="Quantity" id="Quantity" th:field="*{quantity}">
+      </div>
+      <div class="field">
+          <label for="Image">Image: </label>
+          <input type="text" disabled name="Image" id="Image">
+      </div>
+      <div><input type="submit" value="Create" class="button"></div>
+      </form>
+</div>
+     <!-- add product form end here-->
+
+    
+</body>
+</html>
