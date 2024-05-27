@@ -16,7 +16,7 @@
 <div class="form-container">
     <a th:href="@{/products}"> <b>Back</b></a>
     <h3>Update Product</h3>
-    <form th:action="@{/Products/create}" th:object="${productForm}" method="post" >
+    <form th:action="@{|/products/${id}/edit|}" th:object="${productForm}" method="post" >
       <div class="field">
           <label for="Code">Code: </label>
           <input type="text" name="Code" id="Code" th:field="*{code}">
@@ -37,7 +37,7 @@
           <label for="Image">Image: </label>
           <input type="text" disabled name="Image" id="Image">
       </div>
-      <div><input type="submit" value="Create" class="button"></div>
+      <div><input type="submit" value="Update" class="button"></div>
       </form>
 </div>
      <!-- add product form end here-->
