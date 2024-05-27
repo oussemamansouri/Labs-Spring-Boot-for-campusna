@@ -54,7 +54,8 @@ public class ProductController {
 
     @RequestMapping(path="/products/create", method=RequestMethod.POST)
     public String addProduct(@ModelAttribute("productForm") ProductForm productForm) {
-        products.add( new Product(++idCont,productForm.getCode(),productForm.getName(),productForm.getPrice(),productForm.getQuantity(),null));
+        products.add( new Product(++idCont,productForm.getCode(),productForm.getName(),
+        productForm.getPrice(),productForm.getQuantity(),null));
         return "redirect:/products";
     }
 
@@ -65,15 +66,27 @@ public class ProductController {
         .filter(res -> res.getId() == id)
         .findFirst()
         .ifPresent( (res) -> {
-            model.addAttribute("productForm", new ProductForm(res.getCode(),res.getName(),res.getPrice(),res.getQuantity(),null)) ;
+            model.addAttribute("productForm",
+            new ProductForm(res.getCode(),
+            res.getName(),res.getPrice(),res.getQuantity(),null)) ;
             model.addAttribute("id", id );
         });
         return "edit";
     }
 
     @RequestMapping(path="/products/{id}/edit", method=RequestMethod.POST)
-    public String updateProduct(@RequestParam String param) {
-        return new String();
+    public String updateProduct(@PathVariable Long id,
+     @ModelAttribute("productForm") ProductForm productForm ) {
+        products.stream().filter(res -> res.getId() == id )
+        .findFirst()
+        .ifPresent(res -> {
+            res.setCode(productForm.getCode());
+            res.setName(productForm.getName());
+            res.setPrice(productForm.getPrice());
+            res.setQuantity(productForm.getQuantity());
+        });
+
+        return "redirect:/products";
     }
     
      // delete product endpoints 
