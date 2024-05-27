@@ -1,59 +1,65 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{css/list.css}">
     <title>Product List</title>
 </head>
+
 <body>
 
     <div class="heading-container flex-centre">
-        <img th:src="@{/images/logo.png}"  alt="logo image">
+        <img th:src="@{/images/logo.png}" alt="logo image">
         <h1>Product Management</h1>
     </div>
 
     <!-- table of product start here-->
-<div class="table-container ">
-    <a th:href="@{/}"> <b>Back</b></a>
-    <h3>Product List</h3>
-    <table class="product-table">
-        <thead class="table-head">
-            <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Image</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="table-rows" th:each="product : ${products}">
-                <td th:text="${product.code}"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="|${product.price} $|"></td>
-                <td th:text="${product.quantity}"></td>
-                <td class="image-container">
-                    <img th:if="${product.image != null}"  th:src="@{|/images/${product.image}|}" class="image" alt="product image">
-                    <img th:if="${product.image == null}"  th:src="@{/images/no-image.png}" class="image" alt="product image">
-                </td>
-                <td>
-                    <div class="flex-centre">
-                        <form th:action="@{|/products/${product.id}/edit|}" method="get">
-                            <input type="submit" value="Update" class="table-button">
-                        </form>
-                        <form th:action="@{|/products/${product.id}/delete|}" method="post">
-                            <input type="submit" value="Delete" class="table-button">
-                        </form>
-                    </div>
-                </td>
-            </tr>          
-        </tbody>
-    </table>
-    <a th:href="@{/products/create}"><button type="button" class="button">Add Product</button></a>
-</div>
-     <!-- table of product end here-->
-    
+    <div class="table-container ">
+        <a th:href="@{/}"> <b>Back</b></a>
+        <h3>Product List</h3>
+        <table class="product-table" th:if="${products != null}">
+            <thead class="table-head">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-rows" th:each="product : ${products}">
+                    <td th:text="${product.code}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="|${product.price} $|"></td>
+                    <td th:text="${product.quantity}"></td>
+                    <td class="image-container">
+                        <img th:if="${product.image != null}" th:src="@{|/images/${product.image}|}" class="image"
+                            alt="product image">
+                        <img th:if="${product.image == null}" th:src="@{/images/no-image.png}" class="image"
+                            alt="product image">
+                    </td>
+                    <td>
+                        <div class="flex-centre">
+                            <form th:action="@{|/products/${product.id}/edit|}" method="get">
+                                <input type="submit" value="Update" class="table-button">
+                            </form>
+                            <form th:action="@{|/products/${product.id}/delete|}" method="post">
+                                <input type="submit" value="Delete" class="table-button">
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div th:if="${products != null}" class="alert">Ther is no products</div>
+        <a th:href="@{/products/create}"><button type="button" class="button">Add Product</button></a>
+    </div>
+    <!-- table of product end here-->
+
 </body>
+
 </html>
