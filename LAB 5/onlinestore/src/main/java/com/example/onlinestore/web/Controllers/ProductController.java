@@ -10,6 +10,7 @@ import com.example.onlinestore.web.Models.Product;
 import com.example.onlinestore.web.Models.requests.ProductForm;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,31 +46,37 @@ public class ProductController {
 
 
     // Create product endpoints 
-    @RequestMapping(path="/Products/create", method=RequestMethod.GET)
+    @RequestMapping(path="/products/create", method=RequestMethod.GET)
     public String getAddProductForm( Model model ) {
         model.addAttribute("productForm", new ProductForm());
         return "create";
     }
 
-    @RequestMapping(path="/Products/create", method=RequestMethod.POST)
+    @RequestMapping(path="/products/create", method=RequestMethod.POST)
     public String addProduct(@ModelAttribute("productForm") ProductForm productForm) {
         products.add( new Product(++idCont,productForm.getCode(),productForm.getName(),productForm.getPrice(),productForm.getQuantity(),null));
         return "redirect:/products";
     }
 
     // update product endpoints 
-    @RequestMapping(path="/Products/{id}/edit", method=RequestMethod.GET)
-    public String getEditProductForm(@RequestParam String param) {
-        return new String();
+    @RequestMapping(path="/products/{id}/edit", method=RequestMethod.GET)
+    public String getEditProductForm(@PathVariable Long id , Model model) {
+        products.stream()
+        .filter(res -> res.getId() == id)
+        .findFirst()
+        .ifPresent( (res) -> {
+            model.addAttribute("productForm", new ProductForm(res.getCode(),res.getName(),res.getPrice(),res.getQuantity(),null)) ;
+        });
+        return "edit";
     }
 
-    @RequestMapping(path="/Products/{id}/edit", method=RequestMethod.POST)
+    @RequestMapping(path="/products/{id}/edit", method=RequestMethod.POST)
     public String updateProduct(@RequestParam String param) {
         return new String();
     }
     
      // delete product endpoints 
-     @RequestMapping(path="/Products/{id}/delete", method=RequestMethod.POST)
+     @RequestMapping(path="/products/{id}/delete", method=RequestMethod.POST)
      public String deleteProduct(@RequestParam String param) {
          return new String();
      }
