@@ -43,7 +43,7 @@
                         <form th:action="@{|/products/${product.id}/edit|}" method="get">
                             <input type="submit" value="Update" class="table-button">
                         </form>
-                        <form th:action="@{|/products/${product.id}/delete|}">
+                        <form th:action="@{|/products/${product.id}/delete|}" method="post">
                             <input type="submit" value="Delete" class="table-button">
                         </form>
                     </div>
