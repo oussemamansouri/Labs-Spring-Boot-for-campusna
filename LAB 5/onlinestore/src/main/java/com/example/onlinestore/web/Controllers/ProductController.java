@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import com.example.onlinestore.web.Models.Product;
 import com.example.onlinestore.web.Models.requests.ProductForm;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,12 +54,31 @@ public class ProductController {
         return "create";
     }
 
+    // @RequestMapping(path="/products/create", method=RequestMethod.POST)
+    // public String addProduct(@Valid @ModelAttribute("productForm") ProductForm productForm,
+    // BindingResult bindingResult, Model model) {
+    //     if(bindingResult.hasErrors()){
+    //         // model.addAttribute("error", bindingResult);
+    //         return "create";
+    //     }else{
+    //     products.add( new Product(++idCont,productForm.getCode(),productForm.getName(),
+    //     productForm.getPrice(),productForm.getQuantity(),null));
+    //     return "redirect:/products";
+    //     }
+    // }
+
     @RequestMapping(path="/products/create", method=RequestMethod.POST)
-    public String addProduct(@ModelAttribute("productForm") ProductForm productForm) {
-        products.add( new Product(++idCont,productForm.getCode(),productForm.getName(),
-        productForm.getPrice(),productForm.getQuantity(),null));
+public String addProduct(@Valid @ModelAttribute("productForm") ProductForm productForm,
+                         BindingResult bindingResult) {
+    if(bindingResult.hasErrors()){
+        return "create";
+    } else {
+        products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
+                productForm.getPrice(), productForm.getQuantity(), null));
         return "redirect:/products";
     }
+}
+
 
     // update product endpoints 
     @RequestMapping(path="/products/{id}/edit", method=RequestMethod.GET)

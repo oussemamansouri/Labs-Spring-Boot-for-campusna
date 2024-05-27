@@ -19,7 +19,7 @@
     <div class="table-container ">
         <a th:href="@{/}"> <b>Back</b></a>
         <h3>Product List</h3>
-        <table class="product-table" th:if="!${products.isEmpty()}">
+        <table class="product-table" th:if="${!products.isEmpty()}">
             <thead class="table-head">
                 <tr>
                     <th>Code</th>
