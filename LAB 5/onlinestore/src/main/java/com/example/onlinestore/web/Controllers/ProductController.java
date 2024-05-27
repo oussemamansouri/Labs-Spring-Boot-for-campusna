@@ -91,8 +91,9 @@ public class ProductController {
     
      // delete product endpoints 
      @RequestMapping(path="/products/{id}/delete", method=RequestMethod.POST)
-     public String deleteProduct(@RequestParam String param) {
-         return new String();
+     public String deleteProduct(@PathVariable(value = "id") long id) {
+        products.removeIf(res -> res.getId()==id);
+         return "redirect:/products";
      }
     
 
