@@ -40,14 +40,18 @@
                 </td>
                 <td>
                     <div class="flex-centre">
-                        <button type="button" class="table-button">Update</button>
-                        <button type="button" class="table-button">Delete</button>
+                        <form th:action="@{|/products/${product.id}/edit|}" method="get">
+                            <input type="submit" value="Update" class="table-button">
+                        </form>
+                        <form action="">
+                            <input type="submit" value="Delete" class="table-button">
+                        </form>
                     </div>
                 </td>
             </tr>          
         </tbody>
     </table>
-    <a th:href="@{/Products/create}"><button type="button" class="button">Add Product</button></a>
+    <a th:href="@{/products/create}"><button type="button" class="button">Add Product</button></a>
 </div>
      <!-- table of product end here-->
     
