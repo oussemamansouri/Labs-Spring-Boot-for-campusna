@@ -7,16 +7,10 @@
     <link rel="stylesheet" th:href="@{css/list.css}">
     <title>Product List</title>
 </head>
-
-<body>
-
-    <div class="heading-container flex-centre">
-        <img th:src="@{/images/logo.png}" alt="logo image">
-        <h1>Product Management</h1>
-    </div>
+<body th:replace="layout/default-layout::body">
 
     <!-- table of product start here-->
-    <div class="table-container ">
+    <div th:fragment="content" class="table-container ">
         <a th:href="@{/}"> <b>Back</b></a>
         <h3>Product List</h3>
         <table class="product-table" th:if="${!products.isEmpty()}">
