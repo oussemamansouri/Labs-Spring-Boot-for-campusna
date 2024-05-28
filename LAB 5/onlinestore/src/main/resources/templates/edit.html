@@ -20,18 +20,22 @@
       <div class="field">
           <label for="Code">Code: </label>
           <input type="text" name="Code" id="Code" th:field="*{code}">
+          <span style="color: red;" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
       </div>
       <div class="field">
           <label for="Name">Name: </label>
           <input type="text" name="Name" id="Name" th:field="*{name}">
+          <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
       </div>
       <div class="field">
           <label for="Price">Price: </label>
           <input type="number" name="Price" id="Price" th:field="*{price}">
+          <span style="color: red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
       </div>
       <div class="field">
           <label for="Quantity">Quantity: </label>
           <input type="number" name="Quantity" id="Quantity" th:field="*{quantity}">
+          <span style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
       </div>
       <div class="field">
           <label for="Image">Image: </label>
