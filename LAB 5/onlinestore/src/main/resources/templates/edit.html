@@ -6,14 +6,10 @@
     <link rel="stylesheet" th:href="@{/css/create.css}">
     <title>Update Product </title>
 </head>
-<body>
-      <div class="heading-container flex-centre">
-        <img th:src="@{/images/logo.png}"  alt="logo image">
-        <h1>Product Management</h1>
-      </div>
+<body th:replace="layout/default-layout::body">
       
       <!-- Edit product form start here-->
-<div class="form-container">
+<div class="form-container" th:fragment="content">
     <a th:href="@{/products}"> <b>Back</b></a>
     <h3>Update Product</h3>
     <form th:action="@{|/products/${id}/edit|}" th:object="${productForm}" method="post" >
