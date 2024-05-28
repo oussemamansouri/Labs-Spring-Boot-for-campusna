@@ -12,34 +12,34 @@
         <h1>Product Management</h1>
       </div>
       
-      <!-- edit product form start here-->
+      <!-- Edit product form start here-->
 <div class="form-container">
     <a th:href="@{/products}"> <b>Back</b></a>
     <h3>Update Product</h3>
     <form th:action="@{|/products/${id}/edit|}" th:object="${productForm}" method="post" >
       <div class="field">
-          <label for="Code">Code: </label>
-          <input type="text" name="Code" id="Code" th:field="*{code}">
+          <label for="code">Code: </label>
+          <input type="text" name="code" th:field="*{code}" >
           <span style="color: red;" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
       </div>
       <div class="field">
-          <label for="Name">Name: </label>
-          <input type="text" name="Name" id="Name" th:field="*{name}">
+          <label for="name">Name: </label>
+          <input type="text" name="name" th:field="*{name}">
           <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
       </div>
       <div class="field">
-          <label for="Price">Price: </label>
-          <input type="number" name="Price" id="Price" th:field="*{price}">
+          <label for="price">Price: </label>
+          <input type="number" name="price"  th:field="*{price}">
           <span style="color: red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
       </div>
       <div class="field">
-          <label for="Quantity">Quantity: </label>
-          <input type="number" name="Quantity" id="Quantity" th:field="*{quantity}">
+          <label for="quantity">Quantity: </label>
+          <input type="number" name="quantity"  th:field="*{quantity}">
           <span style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
       </div>
       <div class="field">
           <label for="Image">Image: </label>
-          <input type="text" disabled name="Image" id="Image">
+          <input type="text" disabled name="Image" >
       </div>
       <div><input type="submit" value="Update" class="button"></div>
       </form>
