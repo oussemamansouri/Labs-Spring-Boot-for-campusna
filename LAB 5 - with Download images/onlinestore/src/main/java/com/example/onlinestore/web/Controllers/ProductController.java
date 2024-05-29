@@ -97,36 +97,6 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
     }
 }
 
-// @RequestMapping(path = "/products/create", method = RequestMethod.POST)
-// public String addProduct(@Valid @ModelAttribute("productForm") ProductForm productForm,
-//                          BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
-//     if (bindingResult.hasErrors()) {
-//         return "create";
-//     } else {
-//         if (!file.isEmpty()) {
-//             String originalFileName = file.getOriginalFilename();
-//             String fileExtension = "";
-//             if (originalFileName != null && originalFileName.contains(".")) {
-//                 fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-//             }
-//             String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
-//             Path newFilePath = Paths.get(uploadDirectory, uniqueFileName);
-//             try {
-//                 Files.write(newFilePath, file.getBytes());
-//             } catch (Exception e) {
-//                 e.printStackTrace();
-//             }
-//             products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-//                     productForm.getPrice(), productForm.getQuantity(), uniqueFileName));
-//         } else {
-//             products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-//                     productForm.getPrice(), productForm.getQuantity(), null));
-//         }
-
-//         return "redirect:/products";
-//     }
-// }
-
     // update product endpoints
     @RequestMapping(path = "/products/{id}/edit", method = RequestMethod.GET)
     public String getEditProductForm(@PathVariable Long id, Model model) {
@@ -144,12 +114,44 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
 
     @RequestMapping(path = "/products/{id}/edit", method = RequestMethod.POST)
     public String updateProduct( @PathVariable Long id,
-            @Valid @ModelAttribute("productForm") ProductForm productForm, BindingResult bindingResult) {
+            @Valid @ModelAttribute("productForm") ProductForm productForm, BindingResult bindingResult
+            , @RequestParam MultipartFile file, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return "edit";
         }else{
-        products.stream().filter(res -> res.getId() == id)
+            if (!file.isEmpty()) {
+                // Check if the uploaded file is an image
+                String contentType = file.getContentType();
+                if (contentType == null || !contentType.startsWith("image/")) {
+                    redirectAttributes.addFlashAttribute("errorMessage", "Invalid file type. Please upload an image.");
+                    return "redirect:/products/create";
+                }
+    
+                String originalFileName = file.getOriginalFilename();
+                String fileExtension = "";
+                if (originalFileName != null && originalFileName.contains(".")) {
+                    fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+                }
+                String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+                Path newFilePath = Paths.get(uploadDirectory, uniqueFileName);
+                try {
+                    Files.write(newFilePath, file.getBytes());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                products.stream().filter(res -> res.getId() == id)
+                .findFirst()
+                .ifPresent(res -> {
+                    res.setCode(productForm.getCode());
+                    res.setName(productForm.getName());
+                    res.setPrice(productForm.getPrice());
+                    res.setQuantity(productForm.getQuantity());
+                    res.setImage(uniqueFileName);
+                });
+            } else {
+                products.stream().filter(res -> res.getId() == id)
                 .findFirst()
                 .ifPresent(res -> {
                     res.setCode(productForm.getCode());
@@ -157,7 +159,8 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
                     res.setPrice(productForm.getPrice());
                     res.setQuantity(productForm.getQuantity());
                 });
-
+            }
+    
         return "redirect:/products";
         }
     }
