@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 public class ProductForm {
 
-  @NotBlank(message = "Code is required")
+    @NotBlank(message = "Code is required")
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Code must be alphanumeric")
     private String code;
 
