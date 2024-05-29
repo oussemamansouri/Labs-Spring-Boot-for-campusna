@@ -12,7 +12,7 @@
 <div class="form-container" th:fragment="content">
     <a th:href="@{/products}"> <b>Back</b></a>
     <h3>Update Product</h3>
-    <form th:action="@{|/products/${id}/edit|}" th:object="${productForm}" method="post" >
+    <form th:action="@{|/products/${id}/edit|}" th:object="${productForm}" method="post" enctype="multipart/form-data">
       <div class="field">
           <label for="code">Code: </label>
           <input type="text" name="code" th:field="*{code}" >
@@ -34,8 +34,8 @@
           <span style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
       </div>
       <div class="field">
-          <label for="Image">Image: </label>
-          <input type="text" disabled name="Image" >
+          <label for="file">Image: </label>
+          <input type="file" name="file" >
       </div>
       <div><input type="submit" value="Update" class="button"></div>
       </form>
