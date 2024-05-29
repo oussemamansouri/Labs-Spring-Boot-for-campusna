@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.UUID;
+
 @Controller
 public class ProductController {
 
@@ -58,26 +60,30 @@ public class ProductController {
 
     @RequestMapping(path = "/products/create", method = RequestMethod.POST)
     public String addProduct(@Valid @ModelAttribute("productForm") ProductForm productForm,
-            BindingResult bindingResult,@RequestParam("file") MultipartFile file) {
+                             BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
         if (bindingResult.hasErrors()) {
             return "create";
-        }else {
-            if(!file.isEmpty()){
-                StringBuilder fileName = new StringBuilder();
-                Path newFilePath = Paths.get(uploadDirectory, file.getOriginalFilename());
-                fileName.append(file.getOriginalFilename());
+        } else {
+            if (!file.isEmpty()) {
+                String originalFileName = file.getOriginalFilename();
+                String fileExtension = "";
+                if (originalFileName != null && originalFileName.contains(".")) {
+                    fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+                }
+                String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+                Path newFilePath = Paths.get(uploadDirectory, uniqueFileName);
                 try {
                     Files.write(newFilePath, file.getBytes());
                 } catch (Exception e) {
-                   e.printStackTrace();
+                    e.printStackTrace();
                 }
                 products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-                    productForm.getPrice(), productForm.getQuantity(),fileName.toString()));
-            }else{
+                        productForm.getPrice(), productForm.getQuantity(), uniqueFileName));
+            } else {
                 products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-                    productForm.getPrice(), productForm.getQuantity(),null));
+                        productForm.getPrice(), productForm.getQuantity(), null));
             }
-            
+    
             return "redirect:/products";
         }
     }
