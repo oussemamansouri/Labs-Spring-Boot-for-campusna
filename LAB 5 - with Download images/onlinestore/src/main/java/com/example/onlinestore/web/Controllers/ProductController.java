@@ -1,5 +1,8 @@
 package com.example.onlinestore.web.Controllers;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class ProductController {
@@ -27,8 +32,10 @@ public class ProductController {
         products.add(new Product(++idCont, "ss-s9", "Samsung Galaxy s9", 500D, 50, "samsung-s9.png"));
         products.add(new Product(++idCont, "NK-5P", "Nokia 5.1 Plus", 60D, 60, null));
         products.add(new Product(++idCont, "IP-7", "iPhone 7", 600D, 30, "iphone-7.png"));
-
     }
+
+    public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images";
+   
 
     // Read products endpoints
     @RequestMapping("/products")
@@ -51,15 +58,30 @@ public class ProductController {
 
     @RequestMapping(path = "/products/create", method = RequestMethod.POST)
     public String addProduct(@Valid @ModelAttribute("productForm") ProductForm productForm,
-            BindingResult bindingResult) {
+            BindingResult bindingResult,@RequestParam("file") MultipartFile file) {
         if (bindingResult.hasErrors()) {
             return "create";
-        } else {
-            products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-                    productForm.getPrice(), productForm.getQuantity(), null));
+        }else {
+            if(!file.isEmpty()){
+                StringBuilder fileName = new StringBuilder();
+                Path newFilePath = Paths.get(uploadDirectory, file.getOriginalFilename());
+                fileName.append(file.getOriginalFilename());
+                try {
+                    Files.write(newFilePath, file.getBytes());
+                } catch (Exception e) {
+                   e.printStackTrace();
+                }
+                products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
+                    productForm.getPrice(), productForm.getQuantity(),fileName.toString()));
+            }else{
+                products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
+                    productForm.getPrice(), productForm.getQuantity(),null));
+            }
+            
             return "redirect:/products";
         }
     }
+
 
     // update product endpoints
     @RequestMapping(path = "/products/{id}/edit", method = RequestMethod.GET)

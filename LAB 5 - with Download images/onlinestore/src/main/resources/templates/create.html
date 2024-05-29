@@ -12,7 +12,7 @@
     <div class="form-container" th:fragment="content" >
         <a th:href="@{/products}"><b>Back</b></a>
         <h3>New Product</h3>
-        <form th:action="@{/products/create}" th:object="${productForm}" method="post">
+        <form th:action="@{/products/create}" th:object="${productForm}" method="post" enctype="multipart/form-data">
             <div class="field">
                 <label for="code">Code:</label>
                 <input type="text" name="code"  th:field="*{code}">
@@ -35,7 +35,7 @@
             </div>
             <div class="field">
                 <label for="image">Image:</label>
-                <input type="text" disabled name="image" >
+                <input type="file" name="file" >
             </div>
             <div><input type="submit" value="Create" class="button"></div>
         </form>
