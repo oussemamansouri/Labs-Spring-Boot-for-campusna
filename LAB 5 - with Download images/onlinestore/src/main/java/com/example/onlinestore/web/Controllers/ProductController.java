@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.UUID;
 
@@ -58,36 +59,73 @@ public class ProductController {
         return "create";
     }
 
-    @RequestMapping(path = "/products/create", method = RequestMethod.POST)
-    public String addProduct(@Valid @ModelAttribute("productForm") ProductForm productForm,
-                             BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
-        if (bindingResult.hasErrors()) {
-            return "create";
-        } else {
-            if (!file.isEmpty()) {
-                String originalFileName = file.getOriginalFilename();
-                String fileExtension = "";
-                if (originalFileName != null && originalFileName.contains(".")) {
-                    fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-                }
-                String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
-                Path newFilePath = Paths.get(uploadDirectory, uniqueFileName);
-                try {
-                    Files.write(newFilePath, file.getBytes());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-                        productForm.getPrice(), productForm.getQuantity(), uniqueFileName));
-            } else {
-                products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-                        productForm.getPrice(), productForm.getQuantity(), null));
+  @RequestMapping(path = "/products/create", method = RequestMethod.POST)
+public String addProduct(@Valid @ModelAttribute("productForm") ProductForm productForm,
+                         BindingResult bindingResult, @RequestParam("file") MultipartFile file,
+                         RedirectAttributes redirectAttributes) {
+    if (bindingResult.hasErrors()) {
+        return "create";
+    } else {
+        if (!file.isEmpty()) {
+            // Check if the uploaded file is an image
+            String contentType = file.getContentType();
+            if (contentType == null || !contentType.startsWith("image/")) {
+                redirectAttributes.addFlashAttribute("errorMessage", "Invalid file type. Please upload an image.");
+                return "redirect:/products/create";
             }
-    
-            return "redirect:/products";
-        }
-    }
 
+            String originalFileName = file.getOriginalFilename();
+            String fileExtension = "";
+            if (originalFileName != null && originalFileName.contains(".")) {
+                fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+            }
+            String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+            Path newFilePath = Paths.get(uploadDirectory, uniqueFileName);
+            try {
+                Files.write(newFilePath, file.getBytes());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
+                    productForm.getPrice(), productForm.getQuantity(), uniqueFileName));
+        } else {
+            products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
+                    productForm.getPrice(), productForm.getQuantity(), null));
+        }
+
+        return "redirect:/products";
+    }
+}
+
+// @RequestMapping(path = "/products/create", method = RequestMethod.POST)
+// public String addProduct(@Valid @ModelAttribute("productForm") ProductForm productForm,
+//                          BindingResult bindingResult, @RequestParam("file") MultipartFile file) {
+//     if (bindingResult.hasErrors()) {
+//         return "create";
+//     } else {
+//         if (!file.isEmpty()) {
+//             String originalFileName = file.getOriginalFilename();
+//             String fileExtension = "";
+//             if (originalFileName != null && originalFileName.contains(".")) {
+//                 fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+//             }
+//             String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+//             Path newFilePath = Paths.get(uploadDirectory, uniqueFileName);
+//             try {
+//                 Files.write(newFilePath, file.getBytes());
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//             }
+//             products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
+//                     productForm.getPrice(), productForm.getQuantity(), uniqueFileName));
+//         } else {
+//             products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
+//                     productForm.getPrice(), productForm.getQuantity(), null));
+//         }
+
+//         return "redirect:/products";
+//     }
+// }
 
     // update product endpoints
     @RequestMapping(path = "/products/{id}/edit", method = RequestMethod.GET)
