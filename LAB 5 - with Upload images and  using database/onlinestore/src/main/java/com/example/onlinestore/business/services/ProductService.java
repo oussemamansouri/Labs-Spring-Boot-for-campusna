@@ -8,7 +8,7 @@ public interface ProductService {
 
     //read operation
     List<Product> getAllProduct();
-    Product getProductById();
+    Product getProductById( Long id);
 
     //create operation
     Product addProduct(Product product);
