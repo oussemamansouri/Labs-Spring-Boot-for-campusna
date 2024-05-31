@@ -6,10 +6,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
+import com.example.onlinestore.business.servicesImp.ProductServiceImp;
 import com.example.onlinestore.web.Models.Product;
 import com.example.onlinestore.web.Models.requests.ProductForm;
 
@@ -38,12 +40,22 @@ public class ProductController {
     }
 
     public static String uploadDirectory = System.getProperty("user.dir") + "/src/main/resources/static/images";
+
+    @Autowired
+    ProductServiceImp productServiceImp;
+
+    // @Autowired OR you can do this
+    // final ProductServiceImp productServiceImp;
+    // public ProductController(ProductServiceImp productServiceImp){
+    //     this.productServiceImp = productServiceImp;
+    // }
    
 
     // Read products endpoints
     @RequestMapping("/products")
     public String getProducts(Model model) {
-        model.addAttribute("products", products);
+        // model.addAttribute("products", products);
+        model.addAttribute("products",productServiceImp.getAllProduct() );
         return "list";
     }
 
@@ -86,11 +98,13 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-                    productForm.getPrice(), productForm.getQuantity(), uniqueFileName));
+            // products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
+            //         productForm.getPrice(), productForm.getQuantity(), uniqueFileName));
+            this.productServiceImp.addProduct(new com.example.onlinestore.dao.entities.Product(null,productForm.getCode(),
+            productForm.getName(),productForm.getPrice(), productForm.getQuantity(),uniqueFileName));
         } else {
-            products.add(new Product(++idCont, productForm.getCode(), productForm.getName(),
-                    productForm.getPrice(), productForm.getQuantity(), null));
+            this.productServiceImp.addProduct(new com.example.onlinestore.dao.entities.Product(null,productForm.getCode(),
+            productForm.getName(),productForm.getPrice(), productForm.getQuantity(),null));
         }
 
         return "redirect:/products";
@@ -141,24 +155,28 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
                     e.printStackTrace();
                 }
 
-                products.stream().filter(res -> res.getId() == id)
-                .findFirst()
-                .ifPresent(res -> {
-                    res.setCode(productForm.getCode());
-                    res.setName(productForm.getName());
-                    res.setPrice(productForm.getPrice());
-                    res.setQuantity(productForm.getQuantity());
-                    res.setImage(uniqueFileName);
-                });
+                // products.stream().filter(res -> res.getId() == id)
+                // .findFirst()
+                // .ifPresent(res -> {
+                //     res.setCode(productForm.getCode());
+                //     res.setName(productForm.getName());
+                //     res.setPrice(productForm.getPrice());
+                //     res.setQuantity(productForm.getQuantity());
+                //     res.setImage(uniqueFileName);
+                // });
+                this.productServiceImp.updateProduct(new com.example.onlinestore.dao.entities.Product(null,productForm.getCode(),
+                productForm.getName(),productForm.getPrice(),productForm.getQuantity(),uniqueFileName));
             } else {
-                products.stream().filter(res -> res.getId() == id)
-                .findFirst()
-                .ifPresent(res -> {
-                    res.setCode(productForm.getCode());
-                    res.setName(productForm.getName());
-                    res.setPrice(productForm.getPrice());
-                    res.setQuantity(productForm.getQuantity());
-                });
+                // products.stream().filter(res -> res.getId() == id)
+                // .findFirst()
+                // .ifPresent(res -> {
+                //     res.setCode(productForm.getCode());
+                //     res.setName(productForm.getName());
+                //     res.setPrice(productForm.getPrice());
+                //     res.setQuantity(productForm.getQuantity());
+                // });
+                this.productServiceImp.updateProduct(new com.example.onlinestore.dao.entities.Product(null,productForm.getCode(),
+                productForm.getName(),productForm.getPrice(),productForm.getQuantity(),null));
             }
     
         return "redirect:/products";
@@ -168,7 +186,8 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
     // delete product endpoints
     @RequestMapping(path = "/products/{id}/delete", method = RequestMethod.POST)
     public String deleteProduct(@PathVariable(value = "id") long id) {
-        products.removeIf(res -> res.getId() == id);
+        // products.removeIf(res -> res.getId() == id);
+        this.productServiceImp.deleteProductById(id);
         return "redirect:/products";
     }
 

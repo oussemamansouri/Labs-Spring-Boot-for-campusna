@@ -42,7 +42,7 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Long id) {
+    public void deleteProductById(Long id) {
       this.productRepository.deleteById(id);
     }
 
