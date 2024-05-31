@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/create.css}">
+    <title>Add Product</title>
+</head>
+<body th:replace="layout/default-layout::body">
+
+    <!-- Add product form start here -->
+    <div class="form-container" th:fragment="content" >
+        <a th:href="@{/products}"><b>Back</b></a>
+        <h3>New Product</h3>
+        <form th:action="@{/products/create}" th:object="${productForm}" method="post" enctype="multipart/form-data">
+            <div class="field">
+                <label for="code">Code:</label>
+                <input type="text" name="code"  th:field="*{code}">
+                <span style="color: red;" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+            </div>
+            <div class="field">
+                <label for="name">Name:</label>
+                <input type="text" name="name"  th:field="*{name}">
+                <span style="color: red;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+            <div class="field">
+                <label for="price">Price:</label>
+                <input type="number" name="price"  th:field="*{price}">
+                <span style="color: red;" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+            </div>
+            <div class="field">
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity"  th:field="*{quantity}">
+                <span style="color: red;" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></span>
+            </div>
+            <div class="field">
+                <label for="image">Image:</label>
+                <input type="file" name="file" >
+            </div>
+            <div><input type="submit" value="Create" class="button"></div>
+        </form>
+    </div>
+    <!-- Add product form end here -->
+
+</body>
+</html>
