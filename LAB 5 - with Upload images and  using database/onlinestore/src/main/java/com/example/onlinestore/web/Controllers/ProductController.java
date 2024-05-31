@@ -114,15 +114,18 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
     // update product endpoints
     @RequestMapping(path = "/products/{id}/edit", method = RequestMethod.GET)
     public String getEditProductForm(@PathVariable Long id, Model model) {
-        products.stream()
-                .filter(res -> res.getId() == id)
-                .findFirst()
-                .ifPresent((res) -> {
-                    model.addAttribute("productForm",
-                            new ProductForm(res.getCode(),
-                                    res.getName(), res.getPrice(), res.getQuantity(), null));
-                    model.addAttribute("id", id);
-                });
+        // products.stream()
+        //         .filter(res -> res.getId() == id)
+        //         .findFirst()
+        //         .ifPresent((res) -> {
+        //             model.addAttribute("productForm",
+        //                     new ProductForm(res.getCode(),
+        //                             res.getName(), res.getPrice(), res.getQuantity(), null));
+        //             model.addAttribute("id", id);
+        //         });
+        com.example.onlinestore.dao.entities.Product res = this.productServiceImp.getProductById(id);
+        model.addAttribute("productForm", new ProductForm(res.getCode(),
+               res.getName(), res.getPrice(), res.getQuantity(), null));
         return "edit";
     }
 
