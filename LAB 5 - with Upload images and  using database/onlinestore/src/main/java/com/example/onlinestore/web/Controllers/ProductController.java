@@ -178,8 +178,9 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
                 //     res.setPrice(productForm.getPrice());
                 //     res.setQuantity(productForm.getQuantity());
                 // });
+                com.example.onlinestore.dao.entities.Product oldProduct = this.productServiceImp.getProductById(id); 
                 this.productServiceImp.updateProduct(new com.example.onlinestore.dao.entities.Product(id,productForm.getCode(),
-                productForm.getName(),productForm.getPrice(),productForm.getQuantity(),null));
+                productForm.getName(),productForm.getPrice(),productForm.getQuantity(),oldProduct.getImage()));
             }
     
         return "redirect:/products";
