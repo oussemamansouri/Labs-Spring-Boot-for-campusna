@@ -167,7 +167,7 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
                 //     res.setQuantity(productForm.getQuantity());
                 //     res.setImage(uniqueFileName);
                 // });
-                this.productServiceImp.updateProduct(new com.example.onlinestore.dao.entities.Product(null,productForm.getCode(),
+                this.productServiceImp.updateProduct(new com.example.onlinestore.dao.entities.Product(id,productForm.getCode(),
                 productForm.getName(),productForm.getPrice(),productForm.getQuantity(),uniqueFileName));
             } else {
                 // products.stream().filter(res -> res.getId() == id)
@@ -178,7 +178,7 @@ public String addProduct(@Valid @ModelAttribute("productForm") ProductForm produ
                 //     res.setPrice(productForm.getPrice());
                 //     res.setQuantity(productForm.getQuantity());
                 // });
-                this.productServiceImp.updateProduct(new com.example.onlinestore.dao.entities.Product(null,productForm.getCode(),
+                this.productServiceImp.updateProduct(new com.example.onlinestore.dao.entities.Product(id,productForm.getCode(),
                 productForm.getName(),productForm.getPrice(),productForm.getQuantity(),null));
             }
     
