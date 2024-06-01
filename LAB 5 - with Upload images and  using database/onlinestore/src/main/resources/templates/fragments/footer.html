@@ -8,7 +8,7 @@
 <body>
     <footer style="text-align: center;" >
         <p>
-          &copy;2024 MyOnlinestoreApp. All rights reserved
+          &copy; <span th:text="${#dates.year(#dates.createNow())}" ></span> MyOnlinestoreApp. All rights reserved
         </p>
     </footer>
 </body>
